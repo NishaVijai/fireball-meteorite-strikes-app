@@ -91,5 +91,4 @@ Follow the steps below to effectively use "Fireball Meteorite Strikes-web app" a
 https://fireball-meteorite-strikes-app.netlify.app/
 
 - Screenshot of the project
-
-![](./FireballMeteoriteStrikes.png)
+<img width="3840" height="5724" alt="Fireball Meteorite Strikes" src="https://github.com/user-attachments/assets/a2b1f211-191a-45b9-8136-94202bfe8fd1" />
