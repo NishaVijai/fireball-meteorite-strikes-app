@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-// Tabs for the chart
 const tabs = [
   { code: "number", name: "Number of strikes" },
   { code: "mass", name: "Average mass" },
@@ -24,85 +23,94 @@ const tabs = [
 
 export default function BarChart({ searchedMetheroite = [], metheroite = [] }) {
   const [tabContent, setTabContent] = useState("year");
-  const [notNumberMass, setNotNumberMass] = useState(0);
   const [strikeByYear, setStrikeByYear] = useState({});
   const [strikeByClass, setStrikeByClass] = useState({});
-  const [averageMetheroiteWeight, setAverageMetheroiteWeight] = useState(0);
+  const [averageMass, setAverageMass] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  // Count items without numeric mass
-  useEffect(() => {
-    let count = 0;
-    searchedMetheroite.forEach((item) => {
-      if (!item?.mass || isNaN(Number(item.mass))) count++;
-    });
-    setNotNumberMass(count);
-  }, [searchedMetheroite]);
+  const dataArray = searchedMetheroite.length ? searchedMetheroite : metheroite;
 
-  // Count strikes by year and class
+  // Process the data whenever the array changes
   useEffect(() => {
+    if (!dataArray || dataArray.length === 0) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+
     const byYear = {};
     const byClass = {};
-    searchedMetheroite.forEach((item) => {
+    let totalMass = 0;
+    let countWithMass = 0;
+
+    dataArray.forEach((item) => {
       if (item.year) {
         const year = new Date(item.year).getFullYear();
-        byYear[year] = (byYear[year] || 0) + 1;
+        if (!isNaN(year)) byYear[year] = (byYear[year] || 0) + 1;
       }
-      if (item.recclass) {
-        byClass[item.recclass] = (byClass[item.recclass] || 0) + 1;
+
+      if (item.recclass) byClass[item.recclass] = (byClass[item.recclass] || 0) + 1;
+
+      if (item.mass && !isNaN(Number(item.mass))) {
+        totalMass += Number(item.mass);
+        countWithMass++;
       }
     });
+
     setStrikeByYear(byYear);
     setStrikeByClass(byClass);
-  }, [searchedMetheroite]);
+    setAverageMass(countWithMass ? totalMass / countWithMass : 0);
+    setLoading(false);
+  }, [dataArray]);
 
-  // Calculate average meteorite mass
-  useEffect(() => {
-    const totalMass = searchedMetheroite.reduce(
-      (total, item) => total + (Number(item.mass) || 0),
-      0
-    );
-    const countWithMass = searchedMetheroite.filter(
-      (item) => item.mass && !isNaN(Number(item.mass))
-    ).length;
-    setAverageMetheroiteWeight(countWithMass ? totalMass / countWithMass : 0);
-  }, [searchedMetheroite]);
+  // Tab-aware chart data
+  const chartData = useMemo(() => {
+    if (tabContent === "year") {
+      const labels = Object.keys(strikeByYear).sort();
+      const data = labels.map((label) => strikeByYear[label]);
+      return { labels, datasets: [{ data, backgroundColor: "rgba(53, 162, 235, 0.5)" }] };
+    } else if (tabContent === "recclass") {
+      const labels = Object.keys(strikeByClass);
+      const data = labels.map((label) => strikeByClass[label]);
+      return { labels, datasets: [{ data, backgroundColor: "rgba(53, 162, 235, 0.5)" }] };
+    }
+    return null;
+  }, [tabContent, strikeByYear, strikeByClass]);
 
-  // Memoize chart data for performance
-  const yearData = useMemo(() => {
-    const labels = Object.keys(strikeByYear).sort();
-    const data = labels.map((label) => strikeByYear[label]);
-    return { labels, datasets: [{ data, backgroundColor: "rgba(53, 162, 235, 0.5)" }] };
-  }, [strikeByYear]);
-
-  const classData = useMemo(() => {
-    const labels = Object.keys(strikeByClass);
-    const data = labels.map((label) => strikeByClass[label]);
-    return { labels, datasets: [{ data, backgroundColor: "rgba(53, 162, 235, 0.5)" }] };
-  }, [strikeByClass]);
-
-  const yearOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      title: { display: true, text: "Number of strikes by year" },
-    },
-    scales: {
-      y: { ticks: { precision: 0 } },
-    },
-  };
-
-  const classOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      title: { display: true, text: tabs.find((tab) => tab.code === tabContent)?.name || "" },
-    },
-    scales: {
-      y: { ticks: { precision: 0 } },
-    },
-  };
+  // Chart options
+  const chartOptions = useMemo(() => {
+    return {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: tabs.find((tab) => tab.code === tabContent)?.name || "",
+        },
+      },
+      scales: { y: { ticks: { precision: 0 } } },
+    };
+  }, [tabContent]);
 
   const changeTab = (code) => setTabContent(code);
+
+  // Loading or empty state
+  if (loading) {
+    return (
+      <Card className="shadow-lg mx-auto px-5 py-6">
+        <p className="text-center text-gray-500">Loading...</p>
+      </Card>
+    );
+  }
+
+  if (!dataArray || dataArray.length === 0) {
+    return (
+      <Card className="shadow-lg mx-auto px-5 py-6">
+        <p className="text-center text-gray-500">No data available</p>
+      </Card>
+    );
+  }
 
   return (
     <div className="flex items-center">
@@ -126,20 +134,17 @@ export default function BarChart({ searchedMetheroite = [], metheroite = [] }) {
           <div className="flex justify-center max-h-[600px] mx-auto">
             {tabContent === "number" && (
               <p className="bg-[rgba(53,_162,_235,_0.5)] rounded-xl px-5 py-5 mt-5 text-white font-bold sm:text-4xl text-center">
-                Total Number of Strikes:{" "}
-                {searchedMetheroite.length || metheroite.length}
+                Total Number of Strikes: {dataArray.length}
               </p>
             )}
-
             {tabContent === "mass" && (
               <p className="bg-[rgba(53,_162,_235,_0.5)] rounded-xl px-5 py-5 mt-5 text-white font-bold sm:text-4xl text-center">
-                Average Meteorite Mass:{" "}
-                {(averageMetheroiteWeight / (searchedMetheroite.length - notNumberMass)).toLocaleString("en-US")}g
+                Average Meteorite Mass: {averageMass.toLocaleString("en-US")} g
               </p>
             )}
-
-            {tabContent === "year" && <Bar options={yearOptions} data={yearData} />}
-            {tabContent === "recclass" && <Bar options={classOptions} data={classData} />}
+            {(tabContent === "year" || tabContent === "recclass") && chartData && (
+              <Bar options={chartOptions} data={chartData} />
+            )}
           </div>
         </Card>
       </div>
@@ -148,43 +153,6 @@ export default function BarChart({ searchedMetheroite = [], metheroite = [] }) {
 }
 
 BarChart.propTypes = {
-  searchedMetheroite: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      id: PropTypes.string,
-      nametype: PropTypes.string,
-      recclass: PropTypes.string,
-      mass: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      fall: PropTypes.string,
-      year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      reclat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      reclong: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      geolocation: PropTypes.shape({
-        latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      }),
-    })
-  ),
-  metheroite: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      id: PropTypes.string,
-      nametype: PropTypes.string,
-      recclass: PropTypes.string,
-      mass: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      fall: PropTypes.string,
-      year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      reclat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      reclong: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      geolocation: PropTypes.shape({
-        latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      }),
-    })
-  ),
-};
-
-BarChart.defaultProps = {
-  searchedMetheroite: [],
-  metheroite: [],
+  searchedMetheroite: PropTypes.array,
+  metheroite: PropTypes.array,
 };

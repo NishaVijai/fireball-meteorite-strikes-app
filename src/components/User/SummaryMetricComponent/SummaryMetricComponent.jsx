@@ -3,24 +3,21 @@ import BarChart from "./BarChart";
 import Skeleton from "react-loading-skeleton";
 
 export const SummaryMetricComponent = () => {
-  const { meteoriteData, filteredSearchInput, loading } = useApiContext();
+  const { meteoriteData = [], filteredSearchInput = [], loading } = useApiContext();
 
   return (
-    <>
-      {loading && (
-        <div className="mx-20 px-10">
-          <Skeleton width="100%" height={60} />
+    <div className="px-5 sm:px-20">
+      {loading ? (
+        <div className="mx-auto w-full max-w-[1450px]">
+          <Skeleton count={3} height={60} className="mb-4" />
+          <Skeleton height={500} />
         </div>
+      ) : (
+        <BarChart
+          metheroite={meteoriteData}          // full dataset
+          searchedMetheroite={filteredSearchInput} // filtered dataset
+        />
       )}
-
-      {!loading && (
-        <div className="px-5 sm:px-20">
-          <BarChart
-            meteorite={meteoriteData} // full dataset
-            searchedMeteorite={filteredSearchInput} // filtered dataset
-          />
-        </div>
-      )}
-    </>
+    </div>
   );
 };
