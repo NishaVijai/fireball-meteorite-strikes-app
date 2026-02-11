@@ -122,7 +122,7 @@ export default function BarChart({ searchedMetheroite = [], metheroite = [] }) {
               <button
                 key={tab.code}
                 onClick={() => changeTab(tab.code)}
-                className={`text-indigo-500 rounded-md px-[16px] w-full mb-4 sm:w-auto py-[4px] border-2 border-indigo-400 font-medium hover:bg-gray-100 hover:text-slate-800 hover:border-indigo-900 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:text-slate-800 focus:bg-indigo-200 ${tabContent === tab.code ? "bg-indigo-200 border-indigo-900 text-slate-800" : ""
+                className={`text-indigo-800 rounded-md px-[16px] w-full mb-4 sm:w-auto py-[4px] border-2 border-indigo-400 font-medium hover:bg-gray-100 hover:text-slate-800 hover:border-indigo-900 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:text-slate-800 focus:bg-indigo-200 ${tabContent === tab.code ? "bg-indigo-200 border-indigo-900 text-slate-800" : ""
                   }`}
               >
                 {tab.name}
@@ -131,7 +131,7 @@ export default function BarChart({ searchedMetheroite = [], metheroite = [] }) {
           </div>
 
           {/* Chart / Info */}
-          <div className="flex justify-center max-h-[600px] mx-auto">
+          <div className="flex justify-center max-h-[800px] mx-auto">
             {tabContent === "number" && (
               <p className="bg-[rgba(53,_162,_235,_0.5)] rounded-xl px-5 py-5 mt-5 text-white font-bold sm:text-4xl text-center">
                 Total Number of Strikes: {dataArray.length}

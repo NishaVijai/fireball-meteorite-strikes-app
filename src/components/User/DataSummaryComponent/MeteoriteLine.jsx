@@ -60,8 +60,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Mass */}
           <div>
             <div className="flex items-center space-x-3">
-              <FaWeightHanging className="text-gray-400" />
-              <span className="text-gray-400">Mass</span>
+              <FaWeightHanging className="text-gray-700" />
+              <span className="text-gray-700">Mass</span>
             </div>
             <h3 className="font-semibold text-black text-md">{data?.mass ? `${data.mass}g` : "-"}</h3>
           </div>
@@ -69,8 +69,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Recclass */}
           <div>
             <div className="flex items-center space-x-3">
-              <RxDashboard className="text-gray-400" />
-              <span className="text-gray-400">Recclass</span>
+              <RxDashboard className="text-gray-700" />
+              <span className="text-gray-700">Recclass</span>
             </div>
             <h3 className="font-semibold text-black text-md">{data?.recclass || "-"}</h3>
           </div>
@@ -78,8 +78,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Year */}
           <div>
             <div className="flex items-center space-x-3">
-              <BsCalendar3 className="text-gray-400" />
-              <span className="text-gray-400">Year</span>
+              <BsCalendar3 className="text-gray-700" />
+              <span className="text-gray-700">Year</span>
             </div>
             <h3 className="font-semibold text-black text-md">
               {data?.year ? new Date(data.year).getFullYear() : "-"}
@@ -89,8 +89,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Location */}
           <div>
             <div className="flex items-center space-x-3">
-              <PiMapPinFill className="text-gray-400" />
-              <span className="text-gray-400">Location</span>
+              <PiMapPinFill className="text-gray-700" />
+              <span className="text-gray-700">Location</span>
             </div>
             {loading ? <Skeleton width={90} height={20} /> : <h3 className="font-semibold text-black text-md">{country}</h3>}
           </div>
@@ -98,10 +98,10 @@ export const MeteoriteLine = ({ data }) => {
           {/* Nametype */}
           <div>
             <div className="flex items-center space-x-3">
-              <MdEditDocument className="text-gray-400" />
-              <span className="text-gray-400">Nametype</span>
+              <MdEditDocument className="text-gray-700" />
+              <span className="text-gray-700">Nametype</span>
             </div>
-            <div className="w-[75px] bg-[#2cbf2948] rounded-full h-[22px] flex items-center justify-center text-green-700 font-semibold text-md">
+            <div className="w-[75px] bg-[#2cbf2948] rounded-full h-[22px] flex items-center justify-center text-green-900 font-semibold text-md">
               {data?.nametype || "-"}
             </div>
           </div>
@@ -109,8 +109,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Fall */}
           <div>
             <div className="flex items-center space-x-3">
-              <FaWind className="text-gray-400" />
-              <span className="text-gray-400">Fall</span>
+              <FaWind className="text-gray-700" />
+              <span className="text-gray-700">Fall</span>
             </div>
             <h3 className="font-semibold text-black text-md">{data?.fall || "-"}</h3>
           </div>
@@ -118,8 +118,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Reclat */}
           <div>
             <div className="flex items-center space-x-3">
-              <FaArrowsAltV className="text-gray-400" />
-              <span className="text-gray-400">Reclat</span>
+              <FaArrowsAltV className="text-gray-700" />
+              <span className="text-gray-700">Reclat</span>
             </div>
             <h3 className="font-semibold text-black text-md">{data?.reclat || "-"}</h3>
           </div>
@@ -127,8 +127,8 @@ export const MeteoriteLine = ({ data }) => {
           {/* Reclong */}
           <div>
             <div className="flex items-center space-x-3">
-              <FaArrowsAltH className="text-gray-400" />
-              <span className="text-gray-400">Reclong</span>
+              <FaArrowsAltH className="text-gray-700" />
+              <span className="text-gray-700">Reclong</span>
             </div>
             <h3 className="font-semibold text-black text-md">{data?.reclong || "-"}</h3>
           </div>

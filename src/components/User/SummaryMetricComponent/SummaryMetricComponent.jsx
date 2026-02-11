@@ -6,7 +6,7 @@ export const SummaryMetricComponent = () => {
   const { meteoriteData = [], filteredSearchInput = [], loading } = useApiContext();
 
   return (
-    <div className="px-5 sm:px-20">
+    <div className="w-full sm:px-20">
       {loading ? (
         <div className="mx-auto w-full max-w-[1450px]">
           <Skeleton count={3} height={60} className="mb-4" />

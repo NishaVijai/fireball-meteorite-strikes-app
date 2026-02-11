@@ -61,11 +61,11 @@ export const DataListComponent = () => {
   };
 
   return (
-    <div className="flex justify-between my-[120px] px-[20px]">
+    <div className="flex justify-between mt-[160px] mb-6 px-[20px] md:mt-[140px]">
       <Card className="shadow-md shadow-indigo-200 w-full">
         <>
           <div className="block md:flex md:space-y-3 justify-between items-center pb-5 p-3">
-            <h3 className="font-semibold text-black text-2xl">
+            <h3 className="font-semibold text-black text-2xl py-2">
               #{filteredSearchInput.length} Meteorite strikes
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -76,7 +76,7 @@ export const DataListComponent = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-2 max-h-[600px] overflow-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-2 max-h-[800px] overflow-auto">
             {loading ? (
               <>
                 <MeteoriteLineLoading />

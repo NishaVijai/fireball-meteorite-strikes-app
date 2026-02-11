@@ -9,10 +9,11 @@ import { SummaryMetricComponent } from "../components/User/SummaryMetricComponen
 export const SearchPage = () => {
   return (
     <ApiContextProvider>
-      <div className="w-full min-h-screen content-center bg-[#F7FAFF]">
+      <main className="w-full min-h-screen content-center bg-[#F7FAFF]">
         {/* Top Search Card */}
-        <div className="relative bg-indigo-700 h-56">
-          <Card className="absolute mx-auto shadow-lg shadow-indigo-300 min-h-[22vh] w-[90%] top-[20%] left-0 right-0 md:w-[90%] md:top-[40%] lg:w-[50%] lg:top-[60%] lg:min-h-[15vh]">
+        <div className="relative bg-indigo-700 h-56 md:h-40">
+          <Card className="absolute mx-auto shadow-lg shadow-indigo-300 min-h-[18vh] w-[90%] top-[20%] left-0 right-0 md:w-[90%] md:top-[35%] xl:w-[50%] lg:min-h-[15vh]">
+            {/* <Card className="absolute mx-auto shadow-lg shadow-indigo-300 min-h-[18vh] w-[90%] top-[20%] left-0 right-0 md:w-[90%] md:top-[40%] xl:w-[50%] lg:top-[60%] lg:min-h-[15vh]"> */}
             <SearchComponent />
           </Card>
         </div>
@@ -25,7 +26,7 @@ export const SearchPage = () => {
           <SummaryMetricComponent />
           <MetricsComponent />
         </Suspense>
-      </div>
+      </main>
     </ApiContextProvider>
   );
 };

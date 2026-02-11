@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
 export const Label = ({ text, ...attrs }) => {
-    return <label {...attrs}>{text}</label>
-}
+  return <label htmlFor="name" {...attrs}>{text}</label>;
+};
 
 Label.propTypes = {
-    text: PropTypes.string
+  text: PropTypes.string
 };

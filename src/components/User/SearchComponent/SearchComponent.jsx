@@ -126,7 +126,7 @@ export const SearchComponent = () => {
         onSubmit={handleOnSubmit}
       >
         <section className="relative flex-1 justify-center">
-          <Label htmlFor="search" className="sr-only" text="Search" />
+          <Label className="sr-only" text="Search" />
           <span className="absolute top-[32%] left-[4%] md:left-[5%] lg:left-[3%]">
             <BsSearch style={{ color: "rgb(99 102 241)", height: "20px", width: "20px" }} />
           </span>
@@ -136,7 +136,7 @@ export const SearchComponent = () => {
             value={currentInputValue}
             onChange={handleOnChange}
             required
-            className="p-4 pl-12 pr-14 text-md text-slate-800 rounded-lg bg-white placeholder-gray-400 shadow-md shadow-indigo-200 w-full focus:ring-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 md:text-lg md:pl-0 md:pr-12 lg:pl-16 lg:pr-20"
+            className="p-4 pl-12 pr-14 text-md text-slate-800 rounded-lg bg-white placeholder-gray-400 shadow-md shadow-indigo-200 w-full focus:ring-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 md:text-lg md:pl-16 md:pr-12 lg:pl-16 lg:pr-20"
           />
           <span
             className="absolute top-[24%] right-[5%] lg:right-[3%] cursor-pointer"
@@ -149,16 +149,16 @@ export const SearchComponent = () => {
         <Button
           type="submit"
           text="Search"
-          className="text-md text-slate-200 font-semibold rounded-full py-3 bg-indigo-500 border-indigo-700 hover:bg-indigo-600 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:bg-indigo-200 focus:text-slate-800 md:px-8 md:py-4"
+          className="text-md text-slate-100 font-semibold rounded-full py-3 bg-indigo-700 border-indigo-700 hover:bg-indigo-600 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:bg-indigo-200 focus:text-slate-800 md:px-8 md:py-4"
         />
       </form>
 
-      <section className="flex flex-wrap justify-center gap-2 p-4 text-md font-semibold text-indigo-500 md:pl-6 md:justify-start md:pt-6">
+      <section className="flex flex-wrap justify-center gap-2 p-4 text-md font-semibold text-indigo-800 md:pl-6 md:justify-start md:pt-6">
         <Button
           text="Name"
           type="button"
           onClick={() => handleInputSwitch("name")}
-          className={`border-2 border-indigo-400 rounded-md px-6 py-1 mt-3 hover:bg-gray-100 hover:text-slate-800 hover:border-indigo-900 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:text-slate-800 focus:bg-indigo-200 md:mt-0 ${isDefaultSearchOption ? "bg-indigo-200 border-indigo-900 text-slate-800" : ""
+          className={`border-2 border-indigo-400 rounded-md px-6 py-1 mt-3 hover:bg-gray-100 hover:text-slate-800 hover:border-indigo-900 focus:ring-2 focus:outline-none focus:ring-indigo-900 focus:text-slate-800 focus:bg-indigo-200 md:mt-0 ${isDefaultSearchOption ? "bg-indigo-200 border-indigo-900 text-slate-900" : ""
             }`}
         />
         <Button

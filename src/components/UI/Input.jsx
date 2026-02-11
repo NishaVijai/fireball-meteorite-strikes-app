@@ -1,3 +1,3 @@
-export const Input = ({...attrs}) => {
-    return <input {...attrs} />
-}
+export const Input = ({ ...attrs }) => {
+  return <input {...attrs} />;
+};
